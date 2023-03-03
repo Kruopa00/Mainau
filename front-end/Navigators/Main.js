@@ -7,7 +7,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import HomeNavigator from "./HomeNavigator";
 import UserNavigator from "./UserNavigator";
 import AdminNavigator from "./AdminNavigator";
-import ChatNavigator from "./ChatNavigator";
 
 import AuthGlobal from "../Context/store/AuthGlobal";
 
