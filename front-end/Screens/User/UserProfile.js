@@ -12,7 +12,7 @@ import { logoutUser } from "../../Context/actions/Auth.actions";
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import UserReviews from "./UserReviews";
-import { ScreenerScreen } from "./Screener";
+import UserProducts from "./UserProducts";
 
 const Tab = createMaterialTopTabNavigator();
     
@@ -74,17 +74,17 @@ const UserProfile = (props) => {
                 </ScrollView>
             </View>
 
-                    <Tab.Navigator 
-                    initialRouteName="Posts"
-                    tabBarOptions={{
-                        style: { backgroundColor: '#6200ee' },
-                        activeTintColor: '#fff',
-                        inactiveTintColor: '#b3e5fc',
-                        indicatorStyle: { backgroundColor: '#fff' }}}
-                    >
-                        <Tab.Screen name="Posts" component={UserReviews} />
-                        <Tab.Screen name="Reviews" component={Reviews} />
-                    </Tab.Navigator>
+            <Tab.Navigator 
+                initialRouteName="Posts"
+                tabBarOptions={{
+                    style: { backgroundColor: '#6200ee' },
+                    activeTintColor: '#fff',
+                    inactiveTintColor: '#b3e5fc',
+                    indicatorStyle: { backgroundColor: '#fff' }}}
+                >
+                <Tab.Screen name="Reviews" component={UserReviews} />
+                <Tab.Screen name="Posts" component={UserProducts} />
+            </Tab.Navigator>
         </Container>
     )
 }
