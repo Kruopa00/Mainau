@@ -36,20 +36,6 @@ const Main = () => {
                 ),
                 }}
             />
-            <Tab.Screen
-                name="Chat"
-                component={ChatNavigator}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: ({ color }) => (
-                        <Icon 
-                            name="comments"
-                            color={color}
-                            size={30}
-                        />
-                    )
-                }}
-            />
             
             {context.stateUser.user.isAdmin == true ? (
                 <Tab.Screen

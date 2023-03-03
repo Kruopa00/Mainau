@@ -10,7 +10,7 @@ const SingleProduct = (props) => {
     const [item, setItem] = useState(props.route.params.item);
     const [availability, setAvailability] = useState(null);
     const [availabilityText, setAvailabilityText] = useState("");
-    console.log(item.image);
+    console.log(item.user.phone);
 
     return (
         <Container style={styles.container}>
