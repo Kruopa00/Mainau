@@ -1,9 +1,28 @@
 
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import StarRating from './StarRating';
 
 const teest = [
+  {
+    starRating: 4,
+    reviewerName: "Item 1",
+    body: "This client was very rude. don't recommend",
+    date: "2022-01-01"
+  },
+  {
+    starRating: 3,
+    reviewerName: "Ana Franksssssssssssssssssssssssssssssssss",
+    body: "Hello, how are you doing? I cannot do anything to do because I have stuff to do. It makes hard to do",
+    date: "2022-02-01"
+  },
+  {
+    starRating: 5,
+    reviewerName: "Arturas Jomantas",
+    body: "No comment",
+    date: "2022-03-01"
+  },
   {
     starRating: 4,
     reviewerName: "Item 1",
@@ -31,7 +50,7 @@ const Item = ({ starRating, reviewerName, date, body, isFirst }) => (
         <Text style={{ fontSize: 18 }} name={styles.item}>{reviewerName}</Text>
       </View>
     </View>
-    <View style={{ flexDirection: "row", alignItems: "center"}}>
+    <View style={{ marginTop: 2, flexDirection: "row", alignItems: "center"}}>
       <View>
       <StarRating rating={starRating} />
       </View>
@@ -39,17 +58,22 @@ const Item = ({ starRating, reviewerName, date, body, isFirst }) => (
         <Text style={{ color: "gray" }}>{date}</Text>
       </View>
     </View>
-    <View style={{ flexDirection: "row", alignItems: "center"}}>
-      <Text numberOfLines={3} style={{ flex: 1, flexWrap: 'wrap', fontSize: 13, color: "gray" }}>{body}</Text>
+    <View style={{ flexDirection: "row", alignItems: "center", marginTop: 4}}>
+      <View style={{ alignItems: "center" }}>
+        <Text style={{ fontSize: 13 }} name={styles.item}>{body}</Text>
+      </View>
     </View>
   </View>
 );
 
 const ItemList = ({ items }) => (
   <View>
+    <ScrollView>
     {items.map((item, index) => (
-      <Item style={{marginTop: (index===0) ? 0 : 20 }} key={item.reviewerName} {...item} isFirst={index === 0} />
+      <Item style={{marginTop: (index===0) ? 0 : 30 }} key={item.reviewerName} {...item} isFirst={index === 0} />
     ))}
+    </ScrollView>
+
   </View>
 );
 
