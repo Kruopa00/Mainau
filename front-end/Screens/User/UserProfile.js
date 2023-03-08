@@ -73,17 +73,20 @@ const UserProfile = (props) => {
                     </View>
                 </ScrollView>
             </View>
-
             <Tab.Navigator 
-                initialRouteName="Posts"
-                tabBarOptions={{
-                    style: { backgroundColor: '#6200ee' },
+                initialRouteName="Iverciai"
+                tabBarOptions={{ buttonContainer: {
+                    margin: 20,
+                    alignSelf: 'center',
+                    flexDirection: 'row'
+                },
+                    style: { backgroundColor: '#3f51b5' },
                     activeTintColor: '#fff',
                     inactiveTintColor: '#b3e5fc',
                     indicatorStyle: { backgroundColor: '#fff' }}}
                 >
-                <Tab.Screen name="Reviews" component={UserReviews} />
-                <Tab.Screen name="Posts" component={UserProducts} />
+                <Tab.Screen name="Iverčiai" component={UserReviews} />
+                <Tab.Screen name="Produktai" component={UserProducts} />
             </Tab.Navigator>
         </Container>
     )
@@ -97,7 +100,12 @@ const styles = StyleSheet.create({
     subContainer: {
         alignItems: 'center',
         marginTop: 10
-    }
+    },
+    buttonContainer: {
+        margin: 20,
+        alignSelf: 'center',
+        flexDirection: 'row'
+    },
 })
 
 export default UserProfile;
