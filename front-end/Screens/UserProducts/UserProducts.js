@@ -43,13 +43,13 @@ const ListHeader = () => {
     )
 }
 
-const Products = (props) => {
+const UserProducts = (props) => {
 
     const [productList, setProductList] = useState();
     const [productFilter, setProductFilter] = useState();
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
-    
+
     useFocusEffect(
         useCallback(
             () => {
@@ -77,7 +77,7 @@ const Products = (props) => {
             [],
         )
     )
-    console.log(token)
+
     const searchProduct = (text) => {
         if (text == "") {
             setProductFilter(productList);
@@ -188,4 +188,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Products;
+export default UserProducts;

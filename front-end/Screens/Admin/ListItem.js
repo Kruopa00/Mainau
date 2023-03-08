@@ -86,8 +86,7 @@ const ListItem = (props) => {
                 <Text style={styles.item}>{props.brand}</Text>
                 <Text numberOfLines={1} ellipsizeMode="tail" style={styles.item}>{props.name}</Text>
                 <Text numberOfLines={1} ellipsizeMode="tail" style={styles.item}>{props.category.name}</Text>
-                {/* <Text numberOfLines={1} ellipsizeMode="tail">{props.user.name}</Text>
-                <Text>{props.user.ratings}</Text> */}
+                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.item}>{props.user.name}</Text>
             </TouchableOpacity>
         </View>
     )
