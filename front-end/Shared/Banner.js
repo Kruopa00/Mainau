@@ -9,9 +9,9 @@ const Banner = () => {
 
     useEffect(() => {
         setBannerData([
-        "https://www.plungesskelbimai.lt/adv/laisva.png",
-        "https://www.plungesskelbimai.lt/adv/laisva.png",
-        "https://www.plungesskelbimai.lt/adv/laisva.png"
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTycOymWYvPfzNd2JLpkNOz-gY8hsHgjJT0WnrLsmgPuw&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTycOymWYvPfzNd2JLpkNOz-gY8hsHgjJT0WnrLsmgPuw&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTycOymWYvPfzNd2JLpkNOz-gY8hsHgjJT0WnrLsmgPuw&s"
         ])
 
 

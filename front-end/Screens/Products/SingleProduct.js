@@ -41,7 +41,11 @@ const SingleProduct = (props) => {
                         <Text style={styles.review}>{item.user.name}</Text>
                     </Left>
                     <Right style={{marginRight: 15}}>
-                        <MainauButton primary medium>
+                        <MainauButton primary medium
+                            onPress={() => 
+                                props.navigation.navigate("Messages", { item: item })
+                            }
+                        >
                             <Text style={{ color: 'white' }}>Susiekti</Text>
                         </MainauButton>
                     </Right>
