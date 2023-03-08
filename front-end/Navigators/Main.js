@@ -9,6 +9,7 @@ import UserNavigator from "./UserNavigator";
 import AdminNavigator from "./AdminNavigator";
 
 import AuthGlobal from "../Context/store/AuthGlobal";
+import UserProductsNavigator from "./UserProductsNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,6 +41,22 @@ const Main = () => {
                 <Tab.Screen
                 name="Admin"
                 component={AdminNavigator}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => (
+                        <Icon 
+                            name="cog"
+                            color={color}
+                            size={30}
+                        />
+                    )
+                }}
+            />
+            ) : null}
+            {context.stateUser.user.isAdmin == false ? (
+                <Tab.Screen
+                name="UserProducts"
+                component={UserProductsNavigator}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color }) => (

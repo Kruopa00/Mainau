@@ -2,8 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Categories from "../Screens/Admin/Categories";
-import Products from "../Screens/Admin/Products";
 import ProductForm from "../Screens/Admin/ProductForm";
+import UserProducts from "../Screens/UserProducts/UserProducts";
 
 const Stack = createStackNavigator();
 
@@ -12,7 +12,7 @@ function MyStack() {
         <Stack.Navigator>
             <Stack.Screen 
                 name="Products"
-                component={Products}
+                component={UserProducts}
                 options={{
                     title: "Skelbimai"
                 }}
@@ -23,6 +23,6 @@ function MyStack() {
     )
 }
 
-export default function AdminNavigator() {
+export default function UserProductsNavigator() {
     return <MyStack />
 }
