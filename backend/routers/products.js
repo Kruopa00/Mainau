@@ -217,4 +217,16 @@ router.put(
         res.send(product);
     }
 );
+
+// get all products by userId
+
+router.get(`/user/:userId`, async (req, res) =>{
+    //const product = await Product.findById(req.params.id).populate('category').populate('user');
+    const product = await Product.findOne({'user': req.params.userId}).populate('category').populate('user');
+    if (!product) {
+        res.status(500).json({success: false})
+    }
+    res.send(product);
+});
+
 module.exports = router;
