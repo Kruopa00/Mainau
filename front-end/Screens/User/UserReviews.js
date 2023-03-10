@@ -100,7 +100,7 @@ function UserReviews(props) {
                     .catch((error) => console.log(error))
             
                 axios
-                    .get(`${baseURL}reviews/${props.userId}`)
+                    .get(`${baseURL}users/reviews/${props.userId}`)
                     .then((res) => {
                         setReviewList(res.data);
                         setLoading(false);
