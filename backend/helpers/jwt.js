@@ -12,6 +12,9 @@ function authJwt() {
         path: [
             {url: /\/public\/uploads(.*)/, method: ['GET', 'OPTIONS']},
             {url: /\/api\/v1\/products(.*)/ , methods: ['GET', 'OPTIONS'] },
+            {url: /\/api\/v1\/products(.*)/ , methods: ['POST', 'OPTIONS'] },
+            {url: /\/api\/v1\/products(.*)/ , methods: ['PUT', 'OPTIONS'] },
+            {url: /\/api\/v1\/products(.*)/ , methods: ['DELETE', 'OPTIONS'] },
             {url: /\/api\/v1\/categories(.*)/, method: ['GET', 'OPTIONS']},
             {url: /\/api\/v1\/categories(.*)/, method: ['GET', 'OPTIONS']},
             {url: /\/api\/v1\/users\/reviews(.*)/, method: ['GET', 'OPTIONS']},

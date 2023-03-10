@@ -67,11 +67,16 @@ const UserProducts = (props) => {
                 axios
                     .get(`${baseURL}products/user/${context.stateUser.user.userId}`)
                     .then((res) => {
-                        setProductList(res.data);
-                        setProductFilter(res.data);
                         setLoading(false);
-                        if (res.data !== null)
-                        {
+                        if (res.data.length == 0) {
+                            setProductList();
+                            setProductFilter();
+                            setEmpty(true);
+                        }
+                        else {
+                            setProductList(res.data);
+                            setProductFilter(res.data);
+                            setLoading(false);
                             setEmpty(false);
                         }
                     })
@@ -122,14 +127,6 @@ const UserProducts = (props) => {
                     <Icon name="plus" size={18} color="white"/>
                     <Text style={styles.buttonText}>Pridėti</Text>
                 </MainauButton>
-                <MainauButton 
-                    secondary
-                    medium
-                    onPress={() => props.navigation.navigate("Categories")}
-                >
-                    <Icon name="plus" size={18} color="white"/>
-                    <Text style={styles.buttonText}>Kategorijos</Text>
-                </MainauButton>
             </View>
             <View>
                 <Header searchBar rounded>
@@ -147,7 +144,11 @@ const UserProducts = (props) => {
                 <View style={styles.spinner}>
                     <ActivityIndicator size="large" color="red" />
                 </View>
-            ): ( 
+            ): empty ? (
+                <View style={styles.spinner}>
+                    <Text>Dėja, jūs skelbimų neturite..</Text>
+                </View>
+            ) : (
                 <FlatList 
                     data={productFilter}
                     ListHeaderComponent={ListHeader}

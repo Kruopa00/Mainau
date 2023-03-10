@@ -18,7 +18,7 @@ var { width } = Dimensions.get("window");
 const ListItem = (props) => {
     
     const [modalVisible, setModalVisible] = useState(false);
-
+    
     return(
         <View>
             <Modal
