@@ -15,38 +15,37 @@ import UserReviews from "./UserReviews";
 import UserProducts from "./UserProducts";
 
 const Tab = createMaterialTopTabNavigator();
-    
-const Posts = () => (
-    <View style={{ backgroundColor: '#ff4081' }}><Text>asdasd</Text></View>
-  );
-const Reviews = () => (
-    <View style={{ backgroundColor: '#fd408a' }}><Text>qqqqq</Text></View>
-);
 
-
-const UserProfile = (props) => {
-    const [userId, setUserId] = useState(props.route.params.userId);
-    const [userProfile, setUserProfile] = useState();
-    const [loading, setLoading] = useState(true);
+const MyUserProfile = (props) => {
+    const context = useContext(AuthGlobal)
+    const [userId, setUserId] = useState();
+    const [userProfile, setUserProfile] = useState()
+    const navigateToNewReviewForm = () => alert("xddd");
 
     useEffect(() => {
-        if(loading) {
-            AsyncStorage.getItem("jwt")
+        if (
+            context.stateUser.isAuthenticated === false || 
+            context.stateUser.isAuthenticated === null
+        ) {
+            props.navigation.navigate("Login")
+        }
+
+        setUserId(context.stateUser.user.userId);
+        AsyncStorage.getItem("jwt")
             .then((res) => {
                 axios
-                    .get(`${baseURL}users/${userId}`, {
+                    .get(`${baseURL}users/${context.stateUser.user.userId}`, {
                         headers: { Authorization: `Bearer ${res}` },
                     })
-                    .then((user) => [setUserProfile(user.data), setLoading(false)])
+                    .then((user) => setUserProfile(user.data))
             })
             .catch((error) => console.log(error))
         
             return () => {
                 setUserProfile();
-                setLoading(false);
-            }
         }
-    })
+
+    }, [context.stateUser.isAuthenticated])
     return (
         <Container contentContainerStyle={ styles.container }>
             <View style={{ height: 180 }}>
@@ -62,6 +61,12 @@ const UserProfile = (props) => {
                             Tel. numeris: {userProfile ? userProfile.phone : ""}
                         </Text>
                     </View>     
+                    <View style={{ marginTop: 10 }}>
+                        <Button title={"Atsijungti"} onPress={() => [
+                            AsyncStorage.removeItem("jwt"),
+                            logoutUser(context.dispatch)
+                        ]}/>
+                    </View>
                 </ScrollView>
             </View>
             <Tab.Navigator 
@@ -76,7 +81,7 @@ const UserProfile = (props) => {
                     inactiveTintColor: '#b3e5fc',
                     indicatorStyle: { backgroundColor: '#fff' }}}
                 >
-                <Tab.Screen name="Iverčiai" children={()=><UserReviews allowNewRating={true} userId={userId} parentProps={props}/>} />
+                <Tab.Screen name="Iverčiai" children={()=><UserReviews userId={userId} parentProps={props}/>} />
                 <Tab.Screen name="Produktai" component={UserProducts} />
             </Tab.Navigator>
         </Container>
@@ -99,4 +104,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default UserProfile;
+export default MyUserProfile;

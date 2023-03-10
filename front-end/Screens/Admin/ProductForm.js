@@ -267,6 +267,7 @@ const ProductForm = (props) => {
                     primary
                     onPress={() => addProduct()}
                 >
+                    <Icon name="plus" size={18} color="white"/>
                     <Text style={styles.buttonText}>Pridėti</Text>
                 </MainauButton>
            </View>
