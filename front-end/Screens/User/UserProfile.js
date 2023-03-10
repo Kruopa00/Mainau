@@ -23,9 +23,11 @@ const Reviews = () => (
     <View style={{ backgroundColor: '#fd408a' }}><Text>qqqqq</Text></View>
 );
 
+
 const UserProfile = (props) => {
     const context = useContext(AuthGlobal)
     const [userProfile, setUserProfile] = useState()
+    const navigateToNewReviewForm = () => alert("xddd");
 
     useEffect(() => {
         if (
@@ -85,7 +87,7 @@ const UserProfile = (props) => {
                     inactiveTintColor: '#b3e5fc',
                     indicatorStyle: { backgroundColor: '#fff' }}}
                 >
-                <Tab.Screen name="Iverčiai" component={UserReviews} />
+                <Tab.Screen name="Iverčiai" children={()=><UserReviews props={props}/>} />
                 <Tab.Screen name="Produktai" component={UserProducts} />
             </Tab.Navigator>
         </Container>

@@ -4,6 +4,7 @@ import {
     Text,
     Image,
     StyleSheet,
+    TextInput,
     TouchableOpacity,
     Platform
 } from "react-native";
@@ -20,18 +21,43 @@ import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 import mime from "mime";
+import ClickableStarRating from "./ClickableStarRating";
 
-const NewRatingForm = () => {
-    
+const NewRatingForm = (props) => {
+    const [description, setDescription] = useState();
+    const [rating, setRating] = useState();
+    const submit = () => {
+        if(rating && description) {
+            alert(description+rating);
+            props.navigation.goBack();
+        } else {
+            alert("Užpildykite laukus!");
+        }
+    }
+
     return (
-        <FormContainer title="Naujas skelbimas">
-            <Text>ssss</Text>
+        <FormContainer title="Naujas įvertis">
+            <ClickableStarRating selectionCallback={(rating) => {setRating(rating)}}></ClickableStarRating>
+            <TextInput style={styles.input} 
+                multiline={true}                 
+                placeholder="Prekės ženklas"
+                name="description"
+                id="description"
+                value={description}
+                onChangeText={(text) => setDescription(text)}/>
+            <MainauButton style={{marginTop: 20}} medium secondary onPress={() => [submit()] }>
+            <Text style={styles.textStyle}>Priduoti</Text>
+            </MainauButton>
         </FormContainer>
     )
 }
 
 const styles = StyleSheet.create({
-  
+    input: {
+        backgroundColor: "white",
+        width: "80%",
+        height: 80
+        },
 })
 
 export default NewRatingForm;

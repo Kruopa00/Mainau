@@ -81,7 +81,7 @@ const ItemList = ({ items }) => (
 
 );
 
-const UserReviews = (props) => {
+function UserReviews({props}) {
   return (
     // <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
     //   <Text style={{ color: "#006600", fontSize: 40 }}>Profiler Screen!</Text>
@@ -93,9 +93,7 @@ const UserReviews = (props) => {
                     medium
                     primary
                     style={{height: 40, backgroundColor: '#3f51b5' }}
-                    onPress={() => [
-                      props.navigation.navigate("NewRatingForm")
-                  ]}
+                    onPress={() => [props.navigation.navigate("New Rating")]}
                 >
                     <Icon name="plus" size={18} color="white"/>
                 </MainauButton> 
