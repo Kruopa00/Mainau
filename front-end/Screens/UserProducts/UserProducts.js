@@ -17,6 +17,8 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MainauButton from "../../Shared/StyledComponents/MainauButton";
+import AuthGlobal from "../../Context/store/AuthGlobal";
+import { useContext } from "react";
 
 var { height, width } = Dimensions.get("window");
 
@@ -48,7 +50,9 @@ const UserProducts = (props) => {
     const [productList, setProductList] = useState();
     const [productFilter, setProductFilter] = useState();
     const [loading, setLoading] = useState(true);
+    const [empty, setEmpty] = useState(true);
     const [token, setToken] = useState();
+    const context = useContext(AuthGlobal);
 
     useFocusEffect(
         useCallback(
@@ -61,17 +65,22 @@ const UserProducts = (props) => {
                     .catch((error) => console.log(error))
             
                 axios
-                    .get(`${baseURL}products`)
+                    .get(`${baseURL}products/user/${context.stateUser.user.userId}`)
                     .then((res) => {
                         setProductList(res.data);
                         setProductFilter(res.data);
                         setLoading(false);
+                        if (res.data !== null)
+                        {
+                            setEmpty(false);
+                        }
                     })
             
                     return () => {
                         setProductList();
                         setProductFilter();
                         setLoading(true);
+                        setEmpty(true);
                     }
             },
             [],
@@ -138,7 +147,7 @@ const UserProducts = (props) => {
                 <View style={styles.spinner}>
                     <ActivityIndicator size="large" color="red" />
                 </View>
-            ): (
+            ): ( 
                 <FlatList 
                     data={productFilter}
                     ListHeaderComponent={ListHeader}
