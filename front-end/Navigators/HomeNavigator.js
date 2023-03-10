@@ -4,6 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack"
 import ProductContainer from "../Screens/Products/ProductContainer";
 import SingleProduct from "../Screens/Products/SingleProduct";
 import Messages from '../Screens/User/Messages';
+import UserProfile from '../Screens/User/UserProfile';
+import NewRatingForm from '../Screens/User/NewRatingForm';
 
 const Stack = createStackNavigator()
 
@@ -22,6 +24,20 @@ function MyStack() {
                 component={SingleProduct}
                 options={{
                     headerShown: false,
+                }}
+            />
+            <Stack.Screen 
+                name='UserProfile'
+                component={UserProfile}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen 
+                name="NewRating"
+                component={NewRatingForm}
+                options={{
+                    headerShown: false
                 }}
             />
             <Stack.Screen 

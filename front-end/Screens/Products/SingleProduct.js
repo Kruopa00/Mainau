@@ -38,7 +38,7 @@ const SingleProduct = (props) => {
                             color={'#ffbb09'}
                             size={20}
                         /></Text>
-                        <Text style={styles.review}>{item.user.name}</Text>
+                        <Text onPress={()=>{props.navigation.navigate("UserProfile", { userId: item.user.id })}} style={styles.review}>{item.user.name}</Text>
                     </Left>
                     <Right style={{marginRight: 15}}>
                         <MainauButton primary medium

@@ -1,13 +1,16 @@
 
 import { fontSize } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Text, View, StyleSheet, Button, TouchableWithoutFeedback} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import StarRating from './StarRating';
 import baseURL from "../../assets/common/baseUrl";
 import MainauButton from "../../Shared/StyledComponents/MainauButton";
+import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { width } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
+import axios from "axios";
 
 const teest = [
   {
@@ -81,23 +84,55 @@ const ItemList = ({ items }) => (
 
 );
 
-function UserReviews({props}) {
+function UserReviews(props) {
+    const [reviewList, setReviewList] = useState();
+    const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState();
+    
+    useFocusEffect(
+        useCallback(
+            () => {
+                // Get Token
+                AsyncStorage.getItem("jwt")
+                    .then((res) => {
+                        setToken(res)
+                    })
+                    .catch((error) => console.log(error))
+            
+                axios
+                    .get(`${baseURL}reviews/${props.userId}`)
+                    .then((res) => {
+                        setReviewList(res.data);
+                        setLoading(false);
+                        alert(JSON.stringify(res.data));
+                    })
+            
+                    return () => {
+                        setReviewList();
+                        setLoading(true);
+                    }
+            },
+            [],
+        )
+    )
   return (
     // <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
     //   <Text style={{ color: "#006600", fontSize: 40 }}>Profiler Screen!</Text>
     // </View>
     <View>
     <ScrollView>
+    { props.allowNewRating && 
       <View  style={styles.buttonContainer}>
       <MainauButton
                     medium
                     primary
                     style={{height: 40, backgroundColor: '#3f51b5' }}
-                    onPress={() => [props.navigation.navigate("New Rating")]}
+                    onPress={() => [props.parentProps.navigation.navigate("New Rating")]}
                 >
                     <Icon name="plus" size={18} color="white"/>
                 </MainauButton> 
       </View>
+  }
     <ItemList items={teest}></ItemList>
     </ScrollView>
 
