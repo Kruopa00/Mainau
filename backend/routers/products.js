@@ -222,7 +222,7 @@ router.put(
 
 router.get(`/user/:userId`, async (req, res) =>{
     //const product = await Product.findById(req.params.id).populate('category').populate('user');
-    const product = await Product.findOne({'user': req.params.userId}).populate('category').populate('user');
+    const product = await Product.find({'user': req.params.userId}).populate('category').populate('user');
     res.send(product);
 });
 
