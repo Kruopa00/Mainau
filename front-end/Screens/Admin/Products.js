@@ -77,7 +77,6 @@ const Products = (props) => {
             [],
         )
     )
-    console.log(token)
     const searchProduct = (text) => {
         if (text == "") {
             setProductFilter(productList);
