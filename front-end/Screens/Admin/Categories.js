@@ -11,6 +11,7 @@ import MainauButton from "../../Shared/StyledComponents/MainauButton";
 import baseURL from "../../assets/common/baseUrl";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
 
 var { width } = Dimensions.get("window");
 
@@ -78,14 +79,31 @@ const Categories = (props) => {
                 Authorization: `Bearer ${token}`,
             }
         };
-
         axios
-        .delete(`${baseURL}categories/${id}`, config)
+        .get(`${baseURL}products/category/${id}`)
         .then((res) => {
-            const newCategories = categories.filter((item) => item._id !== id)
-            setCategories(newCategories);
+            if(res.data.length != 0) {
+                Toast.show({
+                    topOffset: 60,
+                    type: "error",
+                    text1: "Kategorijos ištrinti negalima!",
+                    text2: "Katgerojai priskirta produktų!"
+                });
+                setTimeout(() => {
+                    props.navigation.navigate("Categories");
+                }, 500)
+            }
+            else {
+                axios
+                .delete(`${baseURL}categories/${id}`, config)
+                .then((res) => {
+                    const newCategories = categories.filter((item) => item._id !== id)
+                    setCategories(newCategories);
+                })
+                .catch((error) => alert("Klaida kraunant kategorijas"));
+            }
         })
-        .catch((error) => alert("Klaida kraunant kategorijas"));
+        
     }
     return (
         <View style={{ position: "relative", height: "100%" }}>

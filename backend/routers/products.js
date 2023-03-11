@@ -226,4 +226,12 @@ router.get(`/user/:userId`, async (req, res) =>{
     res.send(product);
 });
 
+// get all products by category
+
+router.get(`/category/:categoryId`, async (req, res) =>{
+    //const product = await Product.findById(req.params.id).populate('category').populate('user');
+    const product = await Product.find({'category': req.params.categoryId}).populate('category').populate('user');
+    res.send(product);
+});
+
 module.exports = router;
