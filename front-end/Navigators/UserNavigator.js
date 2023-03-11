@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../Screens/User/Login";
 import Register from "../Screens/User/Register";
 import MyUserProfile from "../Screens/User/MyUserProfile";
+import MyProductDetail from "../Screens/User/MyProductDetail";
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,13 @@ function MyStack() {
                 component={MyUserProfile}
                 options={{
                     headerShown: false
+                }}
+            />
+            <Stack.Screen 
+                name='Product Detail'
+                component={MyProductDetail}
+                options={{
+                    headerShown: false,
                 }}
             />
         </Stack.Navigator>
