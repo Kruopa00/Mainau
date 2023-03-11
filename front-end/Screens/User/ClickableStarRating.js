@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function ClickableStarRating({selectionCallback}) {
-  const [starRating, setStarRating] = useState(null);
+export default function ClickableStarRating({selectionCallback, rating}) {
+  const [starRating, setStarRating] = useState(rating);
 
   const animatedButtonScale = new Animated.Value(1);
 
@@ -35,6 +35,10 @@ export default function ClickableStarRating({selectionCallback}) {
   const animatedScaleStyle = {
     transform: [{ scale: animatedButtonScale }],
   };
+
+  useEffect(() => {
+    setStarRating(rating);
+  }, [rating]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

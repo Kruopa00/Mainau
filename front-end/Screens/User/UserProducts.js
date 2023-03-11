@@ -34,10 +34,9 @@ const UserProducts = (props) => {
             () => {
                 setFocus(false);
                 setActive(-1);
-
                 // Products        
                 axios
-                    .get(`${baseURL}products`)
+                    .get(`${baseURL}products/user/${props.userId}`)
                     .then((res) => {
                         setProducts(res.data);
                         setProductsFiltered(res.data);
