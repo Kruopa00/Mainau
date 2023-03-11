@@ -115,13 +115,7 @@ const ProductForm = (props) => {
 
         let formData = new FormData();
 
-        const newImageUri = "file:///" + image.split("file:/").join("");
 
-        formData.append("image", {
-            uri: newImageUri,
-            type: mime.getType(newImageUri),
-            name: newImageUri.split("/").pop()
-        });
         formData.append("name", name);
         formData.append("brand", brand);
         formData.append("description", description);
@@ -158,11 +152,18 @@ const ProductForm = (props) => {
                 Toast.show({
                     topOffset: 60,
                     type: "error",
-                    text1: "Kažkas negerai...",
+                    text1: "Kažkas negerai su atnaujinimu...",
                     text2: "Bandykite dar kartą!"
                 })
             })
         } else {
+            const newImageUri = "file:///" + image.split("file:/").join("");
+            alert(newImageUri);
+            formData.append("image", {
+                uri: newImageUri,
+                type: mime.getType(newImageUri),
+                name: newImageUri.split("/").pop()
+            });
             axios
             .post(`${baseURL}products`, formData, config)
             .then((res) => {
