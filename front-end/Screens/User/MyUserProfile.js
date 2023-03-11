@@ -8,7 +8,7 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 
 import AuthGlobal from "../../Context/store/AuthGlobal";
-import { logoutUser } from "../../Context/actions/Auth.actions";
+import { logoutUser, loginUserWithToken } from "../../Context/actions/Auth.actions";
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import UserReviews from "./UserReviews";
@@ -22,27 +22,39 @@ const MyUserProfile = (props) => {
     const [userProfile, setUserProfile] = useState()
 
     useEffect(() => {
-        if (
-            context.stateUser.isAuthenticated === false || 
-            context.stateUser.isAuthenticated === null
-        ) {
-            props.navigation.navigate("Login")
-        }
-
-        setUserId(context.stateUser.user.userId);
         AsyncStorage.getItem("jwt")
             .then((res) => {
+                if (
+                    context.stateUser.isAuthenticated === false || 
+                    context.stateUser.isAuthenticated === null
+                ) {
+                    loginUserWithToken(context.dispatch);
+                }
+
+                if (
+                    context.stateUser.isAuthenticated === false || 
+                    context.stateUser.isAuthenticated === null
+                ) {
+                    props.navigation.navigate("Login")
+                }
+
+                setUserId(context.stateUser.user.userId);
                 axios
                     .get(`${baseURL}users/${context.stateUser.user.userId}`, {
                         headers: { Authorization: `Bearer ${res}` },
                     })
-                    .then((user) => setUserProfile(user.data))
+                    .then((user) => {
+                        if(user.status == 401) {
+                            props.navigation.navigate("Login")
+                        }
+                        setUserProfile(user.data);
+                    })
             })
-            .catch((error) => console.log(error))
+            .catch((error) => [console.log(error)])
         
             return () => {
                 setUserProfile();
-        }
+            }
 
     }, [context.stateUser.isAuthenticated])
     return (
@@ -62,8 +74,8 @@ const MyUserProfile = (props) => {
                     </View>     
                     <View style={{ marginTop: 10 }}>
                         <Button title={"Atsijungti"} onPress={() => [
-                            AsyncStorage.removeItem("jwt"),
-                            logoutUser(context.dispatch)
+                            logoutUser(context.dispatch),
+                            props.navigation.navigate("Login")
                         ]}/>
                     </View>
                 </ScrollView>
