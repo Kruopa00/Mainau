@@ -36,6 +36,13 @@ export const loginUser = (user, dispatch) => {
     });
 };
 
+export const loginUserWithToken = (jwt, dispatch) => {
+    const decoded = jwt_decode(res)
+    dispatch(setCurrentUser(decoded, null))
+};
+
+
+
 export const getUserProfile = (id) => {
     fetch(`${baseURL}users/${id}`, {
         method: "GET",
