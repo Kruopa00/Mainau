@@ -82,7 +82,7 @@ const MyUserProfile = (props) => {
                     indicatorStyle: { backgroundColor: '#fff' }}}
                 >
                 <Tab.Screen name="Atsiliepimai" children={()=><UserReviews userId={userId} parentProps={props}/>} />
-                <Tab.Screen name="Produktai"  children={()=><UserProducts userId={userId}/>}/>
+                <Tab.Screen name="Produktai"  children={()=><UserProducts userId={userId}  navigation={props.navigation}/>}/>
             </Tab.Navigator>}
         </Container>
     )
