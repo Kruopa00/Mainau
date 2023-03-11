@@ -169,6 +169,27 @@ router.get('/reviews/:id', async (req, res) => {
     });
 });
 
+router.get('/reviews/:id/:userAddedId', async (req, res) => {
+    
+    const user = await User.findById(req.params.id);
+    console.log(req.params.userAddedId);
+    console.log(JSON.stringify(user.reviews));
+    var newArray = user.reviews.filter(function (el) {
+        return el.userAddedId == req.params.userAddedId;
+      });
+
+    if (!user) {
+        res.status(500).json({message: 'The user with the given ID was not found!'})
+    }
+    
+    const returnVal = newArray.length > 0 ? newArray[0] : null;
+    res.status(200).json({
+        success: true,
+        review: returnVal
+    });
+});
+
+
 router.delete('/reviews/:userId/:id', async (req, res) => {
     
     const user = await User.findById(req.params.userId);

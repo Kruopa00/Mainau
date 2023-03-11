@@ -1,6 +1,6 @@
 
 import { fontSize } from "@mui/system";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Text, View, StyleSheet, Button, TouchableWithoutFeedback} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -11,6 +11,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { width } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 import axios from "axios";
+import AuthGlobal from "../../Context/store/AuthGlobal";
 
 const teest = [
   {
@@ -51,16 +52,16 @@ const teest = [
   }
 ];
 
-const Item = ({ starRating, reviewerName, date, body, isFirst }) => (
+const Item = ({ rating, nameWhoAdded, date, comment, isFirst }) => (
   <View   style={{ marginLeft: 5, marginRight: 5, marginTop: isFirst ? 0 : 20, fontSize: 30}}> 
     <View style={{ flexDirection: "row", alignItems: "center"}}>
       <View style={{ alignItems: "center" }}>
-        <Text style={{ fontSize: 18 }} name={styles.item}>{reviewerName}</Text>
+        <Text style={{ fontSize: 18 }} name={styles.item}>{nameWhoAdded}</Text>
       </View>
     </View>
     <View style={{ marginTop: 2, flexDirection: "row", alignItems: "center"}}>
       <View>
-      <StarRating rating={starRating} />
+      <StarRating rating={rating} />
       </View>
       <View style={{position: 'absolute', right: 10}}>
         <Text style={{ color: "gray" }}>{date}</Text>
@@ -68,7 +69,7 @@ const Item = ({ starRating, reviewerName, date, body, isFirst }) => (
     </View>
     <View style={{ flexDirection: "row", alignItems: "center", marginTop: 4}}>
       <View style={{ alignItems: "center" }}>
-        <Text style={[styles.default]} name={styles.item}>{body}</Text>
+        <Text style={[styles.default]} name={styles.item}>{comment}</Text>
       </View>
     </View>
   </View>
@@ -88,23 +89,22 @@ function UserReviews(props) {
     const [reviewList, setReviewList] = useState();
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
-    
+    const context = useContext(AuthGlobal)
     useFocusEffect(
         useCallback(
             () => {
-                // Get Token
-                AsyncStorage.getItem("jwt")
-                    .then((res) => {
-                        setToken(res)
-                    })
-                    .catch((error) => console.log(error))
-            
-                axios
+
+                  // Get Token
+                  AsyncStorage.getItem("jwt")
+                  .then((res) => {
+                      setToken(res)
+                  })
+                  .catch((error) => console.log(error))
+                  axios
                     .get(`${baseURL}users/reviews/${props.userId}`)
                     .then((res) => {
-                        setReviewList(res.data);
-                        setLoading(false);
-                        alert(JSON.stringify(res.data));
+                      setReviewList(res.data.reviews);
+                      setLoading(false);
                     })
             
                     return () => {
@@ -121,19 +121,21 @@ function UserReviews(props) {
     // </View>
     <View>
     <ScrollView>
-    { props.allowNewRating && 
+    { props.allowNewRating && context.stateUser.isAuthenticated &&
       <View  style={styles.buttonContainer}>
       <MainauButton
                     medium
                     primary
                     style={{height: 40, backgroundColor: '#3f51b5' }}
-                    onPress={() => [props.parentProps.navigation.navigate("New Rating")]}
+                    onPress={() => [props.parentProps.navigation.navigate("NewRating", {userId: props.userId})]}
                 >
                     <Icon name="plus" size={18} color="white"/>
                 </MainauButton> 
       </View>
   }
-    <ItemList items={teest}></ItemList>
+    { !loading &&
+    <ItemList items={reviewList}></ItemList>
+    }
     </ScrollView>
 
     </View>

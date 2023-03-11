@@ -20,7 +20,6 @@ const MyUserProfile = (props) => {
     const context = useContext(AuthGlobal)
     const [userId, setUserId] = useState();
     const [userProfile, setUserProfile] = useState()
-    const navigateToNewReviewForm = () => alert("xddd");
 
     useEffect(() => {
         if (
@@ -69,6 +68,7 @@ const MyUserProfile = (props) => {
                     </View>
                 </ScrollView>
             </View>
+            {userId &&
             <Tab.Navigator 
                 initialRouteName="Iverciai"
                 tabBarOptions={{ buttonContainer: {
@@ -81,9 +81,9 @@ const MyUserProfile = (props) => {
                     inactiveTintColor: '#b3e5fc',
                     indicatorStyle: { backgroundColor: '#fff' }}}
                 >
-                <Tab.Screen name="Iverčiai" children={()=><UserReviews userId={userId} parentProps={props}/>} />
-                <Tab.Screen name="Produktai" component={UserProducts} />
-            </Tab.Navigator>
+                                <Tab.Screen name="Iverčiai" children={()=><UserReviews userId={userId} parentProps={props}/>} />
+                <Tab.Screen name="Produktai"  children={()=><UserProducts userId={userId}/>}/>
+            </Tab.Navigator>}
         </Container>
     )
 }
