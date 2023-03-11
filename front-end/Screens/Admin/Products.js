@@ -49,6 +49,7 @@ const Products = (props) => {
     const [productFilter, setProductFilter] = useState();
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
+    const [empty, setEmpty] = useState(true);
     
     useFocusEffect(
         useCallback(
@@ -63,9 +64,18 @@ const Products = (props) => {
                 axios
                     .get(`${baseURL}products`)
                     .then((res) => {
-                        setProductList(res.data);
-                        setProductFilter(res.data);
                         setLoading(false);
+                        if (res.data.length == 0) {
+                            setProductList();
+                            setProductFilter();
+                            setEmpty(true);
+                        }
+                        else {
+                            setProductList(res.data);
+                            setProductFilter(res.data);
+                            setLoading(false);
+                            setEmpty(false);
+                        }
                     })
             
                     return () => {
@@ -137,7 +147,11 @@ const Products = (props) => {
                 <View style={styles.spinner}>
                     <ActivityIndicator size="large" color="red" />
                 </View>
-            ): (
+            ): empty ? (
+                <View style={styles.spinner}>
+                    <Text>Dėja, jūs skelbimų neturite..</Text>
+                </View>
+            ) : (
                 <FlatList 
                     data={productFilter}
                     ListHeaderComponent={ListHeader}

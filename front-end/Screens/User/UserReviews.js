@@ -2,7 +2,7 @@
 import { fontSize } from "@mui/system";
 import React, { useState, useCallback, useContext } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Text, View, StyleSheet, Button, TouchableWithoutFeedback} from "react-native";
+import { Text, View, StyleSheet, Button, TouchableWithoutFeedback, Dimensions} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import StarRating from './StarRating';
 import baseURL from "../../assets/common/baseUrl";
@@ -12,6 +12,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { width } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 import axios from "axios";
 import AuthGlobal from "../../Context/store/AuthGlobal";
+
+var { height } = Dimensions.get("window");
 
 const teest = [
   {
@@ -89,6 +91,7 @@ function UserReviews(props) {
     const [reviewList, setReviewList] = useState();
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
+    const [empty, setEmpty] = useState(true);
     const context = useContext(AuthGlobal)
     useFocusEffect(
         useCallback(
@@ -103,6 +106,12 @@ function UserReviews(props) {
                   axios
                     .get(`${baseURL}users/reviews/${props.userId}`)
                     .then((res) => {
+                      if (res.data.reviews.length == 0) {
+                        setEmpty(true);
+                        setReviewList();
+                      }
+                      else
+                        setEmpty(false);
                       setReviewList(res.data.reviews);
                       setLoading(false);
                     })
@@ -110,6 +119,7 @@ function UserReviews(props) {
                     return () => {
                         setReviewList();
                         setLoading(true);
+                        setEmpty(true);
                     }
             },
             [],
@@ -132,9 +142,17 @@ function UserReviews(props) {
                     <Icon name="plus" size={18} color="white"/>
                 </MainauButton> 
       </View>
-  }
-    { !loading &&
+    }
+    { !loading && !empty &&
     <ItemList items={reviewList}></ItemList>
+    }
+    { !loading && empty &&
+      <View style={styles.spinner}>
+        <Text style={{fontSize: 20}}>
+          Dėja, atsiliepimų nėra...
+        </Text>  
+      </View>
+      
     }
     </ScrollView>
 
@@ -179,7 +197,12 @@ const styles = StyleSheet.create({
     },
     buttonText: {
       fontSize: 30,
-    }
+    },
+    spinner: {
+      height: height / 2,
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
 });
   
 export default UserReviews;

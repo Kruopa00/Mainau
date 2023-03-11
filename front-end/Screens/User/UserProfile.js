@@ -76,7 +76,7 @@ const UserProfile = (props) => {
                     inactiveTintColor: '#b3e5fc',
                     indicatorStyle: { backgroundColor: '#fff' }}}
                 >
-                <Tab.Screen name="Iverčiai" children={()=><UserReviews allowNewRating={true} userId={userId} parentProps={props}/>} />
+                <Tab.Screen name="Atsiliepimai" children={()=><UserReviews allowNewRating={true} userId={userId} parentProps={props}/>} />
                 <Tab.Screen name="Produktai" children={()=><UserProducts userId={userId}/>}/>
             </Tab.Navigator>
         </Container>

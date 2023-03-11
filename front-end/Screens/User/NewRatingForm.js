@@ -56,7 +56,7 @@ const NewRatingForm = (props) => {
                     Toast.show({
                         topOffset: 60,
                         type: "success",
-                        text1: "Skelbimas atnaujintas!",
+                        text1: "Įvertinimas atnaujintas!",
                         text2: ""
                     });
                     setTimeout(() => {
@@ -109,7 +109,7 @@ const NewRatingForm = (props) => {
     )
 
     return (
-        <FormContainer title="Naujas įvertis">
+        <FormContainer title="Naujas atsiliepimas">
             <ClickableStarRating rating={rating} selectionCallback={(rating) => {setRating(rating)}}></ClickableStarRating>
             <TextInput style={styles.input} 
                 multiline={true}                 
@@ -121,7 +121,7 @@ const NewRatingForm = (props) => {
             
             
             <MainauButton style={{marginTop: 20}} medium secondary onPress={() => [submit()] }>
-            <Text style={styles.textStyle}>Priduoti</Text>
+            <Text style={styles.textStyle}>Pridėti</Text>
             </MainauButton>
             
             
