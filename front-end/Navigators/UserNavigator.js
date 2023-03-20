@@ -10,7 +10,14 @@ const Stack = createStackNavigator();
 
 function MyStack() {
     return (
-        <Stack.Navigator>
+    <Stack.Navigator>
+        <Stack.Screen 
+            name="User Profile"
+            component={MyUserProfile}
+            options={{
+                headerShown: false
+            }}
+        />
             <Stack.Screen 
                 name="Login"
                 component={Login}
@@ -21,13 +28,6 @@ function MyStack() {
             <Stack.Screen 
                 name="Register"
                 component={Register}
-                options={{
-                    headerShown: false
-                }}
-            />
-            <Stack.Screen 
-                name="User Profile"
-                component={MyUserProfile}
                 options={{
                     headerShown: false
                 }}
