@@ -26,17 +26,13 @@ const MyUserProfile = (props) => {
             .then((res) => {
                 if (
                     context.stateUser.isAuthenticated === false || 
-                    context.stateUser.isAuthenticated === null
-                ) {
-                    loginUserWithToken(context.dispatch);
-                }
-
-                if (
-                    context.stateUser.isAuthenticated === false || 
-                    context.stateUser.isAuthenticated === null
+                    context.stateUser.isAuthenticated === null ||
+                    !context.stateUser.user
                 ) {
                     props.navigation.navigate("Login")
+                    return
                 }
+
 
                 setUserId(context.stateUser.user.userId);
                 axios
