@@ -54,11 +54,14 @@ const UserProfile = (props) => {
                     <Text style={{ fontSize: 30 }}>
                         {userProfile ? userProfile.name : ""}
                     </Text>
-                    <View style={{ marginTop: 10 }}>
-                        <Text style={{ margin: 5 }}>
-                            Aprašymas: {userProfile ? userProfile.email : ""}
+                    <View style={{ marginTop: 5 }}>
+                        <Text style={{ margin: 5, textAlign: 'center', fontSize: 20}}>
+                            {userProfile ? "Aprašymas:" : ""}
                         </Text>
-                    </View>     
+                        <Text style={{textAlign: "justify"}}>
+                            {userProfile ? userProfile.description : ""}
+                        </Text>
+                    </View>       
                 </ScrollView>
             </View>
             <Tab.Navigator 

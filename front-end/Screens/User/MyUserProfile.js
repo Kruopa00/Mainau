@@ -60,12 +60,12 @@ const MyUserProfile = (props) => {
                     <Text style={{ fontSize: 30 }}>
                         {userProfile ? userProfile.name : ""}
                     </Text>
-                    <View style={{ marginTop: 10 }}>
-                        <Text style={{ margin: 5 }}>
-                            El. paštas: {userProfile ? userProfile.email : ""}
+                    <View style={{ marginTop: 5 }}>
+                        <Text style={{ margin: 5, textAlign: 'center', fontSize: 20}}>
+                            {userProfile ? "Aprašymas:" : ""}
                         </Text>
-                        <Text style={{ margin: 5 }}>
-                            Tel. numeris: {userProfile ? userProfile.phone : ""}
+                        <Text style={{textAlign: "justify"}}>
+                            {userProfile ? userProfile.description : ""}
                         </Text>
                     </View>     
                     <View style={{ marginTop: 10 }}>

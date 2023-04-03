@@ -96,7 +96,6 @@ const Register = (props) => {
                     placeholder={"Aprašymas apie Jus"}
                     name={"description"}
                     id={"description"}
-                    secureTextEntry={true}
                     onChangeText={(text) => setDescription(text)}
                 />
                 <View style={styles.buttonGroup}>

@@ -15,44 +15,6 @@ import AuthGlobal from "../../Context/store/AuthGlobal";
 
 var { height } = Dimensions.get("window");
 
-const teest = [
-  {
-    starRating: 4,
-    reviewerName: "Item 1",
-    body: "This client was very rude. don't recommend",
-    date: "2022-01-01"
-  },
-  {
-    starRating: 3,
-    reviewerName: "Ana Frankssssss",
-    body: "Hello, how are you doing? I cannot do anything to do because I have stuff to do. It makes hard to do",
-    date: "2022-02-01"
-  },
-  {
-    starRating: 5,
-    reviewerName: "Arturas Jomantas",
-    body: "No comment",
-    date: "2022-03-01"
-  },
-  {
-    starRating: 4,
-    reviewerName: "Item 1",
-    body: "This client was very rude. don't recommend",
-    date: "2022-01-01"
-  },
-  {
-    starRating: 3,
-    reviewerName: "Ana Frank",
-    body: "This client was very kind. absolutely recommend",
-    date: "2022-02-01"
-  },
-  {
-    starRating: 5,
-    reviewerName: "Arturas Jomantas",
-    body: "No comment",
-    date: "2022-03-01"
-  }
-];
 
 const Item = ({ rating, nameWhoAdded, date, comment, isFirst }) => (
   <View   style={{ marginLeft: 5, marginRight: 5, marginTop: isFirst ? 0 : 20, fontSize: 30}}> 
