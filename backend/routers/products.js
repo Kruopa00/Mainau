@@ -51,7 +51,10 @@ router.get(`/`, async (req, res) =>{
 });
 
 router.get(`/:id`, async (req, res) =>{
-    const product = await Product.findById(req.params.id).populate('category').populate('user');
+    const product = await Product.findById(req.params.id).populate('category').populate({
+        path: 'user',
+        select: '-passwordHash' // Exclude passwordHash field from user
+      });
 
     if (!product) {
         res.status(500).json({success: false})
