@@ -146,7 +146,7 @@ const UserProducts = (props) => {
                 </View>
             ): empty ? (
                 <View style={styles.spinner}>
-                    <Text>Dėja, jūs skelbimų neturite..</Text>
+                    <Text>Deja, jūs skelbimų neturite...</Text>
                 </View>
             ) : (
                 <FlatList 

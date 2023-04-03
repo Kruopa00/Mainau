@@ -18,9 +18,10 @@ const Register = (props) => {
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [description, setDescription] = useState("");
 
     const register = () => {
-        if (email === "" || name === "" || password === "" || phone === "") {
+        if (email === "" || name === "" || password === "" || phone === "" || description === "") {
             setError("Įveskite teisingus duomenis")
         }
 
@@ -29,7 +30,8 @@ const Register = (props) => {
             email: email,
             password: password,
             phone: phone,
-            isAdmin: false
+            isAdmin: false,
+            description: description
         }
 
         axios
@@ -89,6 +91,13 @@ const Register = (props) => {
                     id={"password"}
                     secureTextEntry={true}
                     onChangeText={(text) => setPassword(text)}
+                />
+                <Input 
+                    placeholder={"Aprašymas apie Jus"}
+                    name={"description"}
+                    id={"description"}
+                    secureTextEntry={true}
+                    onChangeText={(text) => setDescription(text)}
                 />
                 <View style={styles.buttonGroup}>
                     {error ? <Error message={error} /> : null}

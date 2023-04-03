@@ -18,14 +18,12 @@ import * as SMS from 'expo-sms';
 const Messages = (props) => {
     const [item, setItem] = useState(props.route.params.item);
     const [mobileNumber, setMobileNumber] = useState(item.user.phone);
-    const [bodySMS, setBodySMS] = useState('');
+    const [bodySMS, setBodySMS] = useState('Sveiki, noriu mainytis Jūsų preke: "' + item.name + '".');
 
   const sendSms = async () => {
     const {result} = await SMS.sendSMSAsync(
       mobileNumber, bodySMS
     );
-
-    console.log(result);
   }
 
   return (
@@ -34,18 +32,6 @@ const Messages = (props) => {
         <Text style={styles.titleText}>
             Susisiekite dėl prekės, kurią norite mainytis.
         </Text>
-        <Text style={styles.titleTextsmall}>
-            Telefono numeris
-        </Text>
-        <TextInput
-          value={mobileNumber}
-          onChangeText={
-            (mobileNumber) => setMobileNumber(mobileNumber)
-          }
-          placeholder={'Tel.numeris'}
-          keyboardType="numeric"
-          style={styles.textInput}
-        />
         <Text style={styles.titleTextsmall}>
           Įveskite žinutę:
         </Text>

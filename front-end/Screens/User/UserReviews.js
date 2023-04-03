@@ -149,7 +149,7 @@ function UserReviews(props) {
     { !loading && empty &&
       <View style={styles.spinner}>
         <Text style={{fontSize: 20}}>
-          Dėja, atsiliepimų nėra...
+          Deja, atsiliepimų nėra...
         </Text>  
       </View>
       

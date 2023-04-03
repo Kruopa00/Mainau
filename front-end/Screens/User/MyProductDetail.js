@@ -10,7 +10,6 @@ const MyProductDetail = (props) => {
     const [item, setItem] = useState(props.route.params.item);
     const [availability, setAvailability] = useState(null);
     const [availabilityText, setAvailabilityText] = useState("");
-    console.log(item.user.phone);
 
     return (
         <Container style={styles.container}>

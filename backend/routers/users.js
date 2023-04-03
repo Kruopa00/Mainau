@@ -31,6 +31,7 @@ router.post('/', async (req, res) => {
         passwordHash: bcrypt.hashSync(req.body.password, 10),
         phone: req.body.phone,
         isAdmin: req.body.isAdmin,
+        description: req.body.description,
     })
     user = await user.save();
 
@@ -71,6 +72,7 @@ router.post('/register', async (req, res) => {
         passwordHash: bcrypt.hashSync(req.body.password, 10),
         phone: req.body.phone,
         isAdmin: req.body.isAdmin,
+        description: req.body.description,
     })
     user = await user.save();
 

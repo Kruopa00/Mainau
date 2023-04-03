@@ -10,7 +10,6 @@ const SingleProduct = (props) => {
     const [item, setItem] = useState(props.route.params.item);
     const [availability, setAvailability] = useState(null);
     const [availabilityText, setAvailabilityText] = useState("");
-    console.log(item.user.phone);
 
     return (
         <Container style={styles.container}>
@@ -38,7 +37,7 @@ const SingleProduct = (props) => {
                             color={'#ffbb09'}
                             size={20}
                         /></Text>
-                        <Text onPress={()=>{props.navigation.navigate("UserProfile", { userId: item.user.id })}} style={styles.review}>{item.user.name}</Text>
+                        <Text onPress={()=>{props.navigation.navigate("UserProfile", { userId: item.user.id })}} style={styles.userName}>{item.user.name}</Text>
                     </Left>
                     <Right style={{marginRight: 15}}>
                         <MainauButton primary medium
@@ -94,6 +93,11 @@ const styles = StyleSheet.create({
     review: {
         fontSize: 20,
         color: '#111111',
+        marginLeft: 15
+    },
+    userName: {
+        fontSize: 20,
+        color: '#008ECC',
         marginLeft: 15
     },
     availabilityContainer: {

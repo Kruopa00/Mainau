@@ -129,9 +129,6 @@ const ProductContainer = (props) => {
                     <ScrollView>
                         <View>
                             <View>
-                                <Banner />
-                            </View>
-                            <View>
                                 <CategoryFilter 
                                     categories={categories}
                                     categoryFilter={changeCtg}
@@ -154,7 +151,7 @@ const ProductContainer = (props) => {
                                 </View>
                             ): (
                                 <View style={[styles.center, { height: height / 2 }]}>
-                                    <Text>Dėja skelbimų nerasta....</Text>
+                                    <Text>Deja, skelbimų nerasta...</Text>
                                 </View>
                             )}
                             

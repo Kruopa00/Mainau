@@ -107,7 +107,7 @@ const UserProducts = (props) => {
                     <Item>
                         <Icon name="ios-search"/>
                         <Input 
-                            placeholder="Search"
+                            placeholder="Paieška"
                             onFocus={openList}
                             onChangeText={(text) => searchProduct(text)}
                         />
@@ -138,7 +138,7 @@ const UserProducts = (props) => {
                                 </View>
                             ): (
                                 <View style={[styles.center, { height: height / 2 }]}>
-                                    <Text>Deja, skelbimų nerasta....</Text>
+                                    <Text>Deja, skelbimų nerasta...</Text>
                                 </View>
                             )}
                             

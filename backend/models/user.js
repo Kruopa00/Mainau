@@ -21,6 +21,10 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    description: {
+        type: String,
+        required: true,
+    },
     numOfReviews: {
         type: Number,
         default: 0

@@ -56,10 +56,7 @@ const UserProfile = (props) => {
                     </Text>
                     <View style={{ marginTop: 10 }}>
                         <Text style={{ margin: 5 }}>
-                            El. paštas: {userProfile ? userProfile.email : ""}
-                        </Text>
-                        <Text style={{ margin: 5 }}>
-                            Tel. numeris: {userProfile ? userProfile.phone : ""}
+                            Aprašymas: {userProfile ? userProfile.email : ""}
                         </Text>
                     </View>     
                 </ScrollView>
