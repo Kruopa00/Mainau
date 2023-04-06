@@ -17,8 +17,8 @@ function MyStack() {
                     title: "Skelbimai"
                 }}
             />
-            <Stack.Screen name="Categories" component={Categories} />
-            <Stack.Screen name="ProductForm" component={ProductForm} />
+            <Stack.Screen name="Categories" component={Categories} options={{ title: "Kategorijos" }}/>
+            <Stack.Screen name="ProductForm" component={ProductForm} options={{ title: "Naujas skelbimas" }} />
         </Stack.Navigator>
     )
 }

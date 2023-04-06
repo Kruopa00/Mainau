@@ -225,7 +225,10 @@ router.put(
 
 router.get(`/user/:userId`, async (req, res) =>{
     //const product = await Product.findById(req.params.id).populate('category').populate('user');
-    const product = await Product.find({'user': req.params.userId}).populate('category').populate('user');
+    const product = await Product.find({'user': req.params.userId}).populate('category').populate({
+        path: 'user',
+        select: '-passwordHash' // Exclude passwordHash field from user
+      });
     res.send(product);
 });
 
@@ -233,7 +236,10 @@ router.get(`/user/:userId`, async (req, res) =>{
 
 router.get(`/category/:categoryId`, async (req, res) =>{
     //const product = await Product.findById(req.params.id).populate('category').populate('user');
-    const product = await Product.find({'category': req.params.categoryId}).populate('category').populate('user');
+    const product = await Product.find({'category': req.params.categoryId}).populate('category').populate({
+        path: 'user',
+        select: '-passwordHash' // Exclude passwordHash field from user
+      });
     res.send(product);
 });
 
