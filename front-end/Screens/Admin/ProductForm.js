@@ -131,7 +131,6 @@ const ProductForm = (props) => {
                 Authorization: `Bearer ${token}`
             }
         } 
-
         if (item !== null) {
             axios
             .put(`${baseURL}products/${item.id}`, formData, config)
@@ -158,7 +157,6 @@ const ProductForm = (props) => {
             })
         } else {
             const newImageUri = "file:///" + image.split("file:/").join("");
-            alert(newImageUri);
             formData.append("image", {
                 uri: newImageUri,
                 type: mime.getType(newImageUri),
