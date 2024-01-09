@@ -17,7 +17,7 @@ var { width } = Dimensions.get("window");
 const ProductCard = (props) => {
     const { name, brand, image, user } = props;
     const { item } = props;
-    const [bodySMS] = useState('Sveiki, noriu mainytis Jūsų preke: "' + name + '".');
+    const [bodySMS] = useState('Sveiki, noriu mainytis: "' + name + '".');
 
     const sendSms = async () => {
         const {result} = await SMS.sendSMSAsync(user.phone, bodySMS);

@@ -23,7 +23,7 @@ const Login = (props) => {
 
     const handleSubmit = () => {
         const user = {
-            email,
+            email: email.toLowerCase(),
             password
         }
 
@@ -42,7 +42,7 @@ const Login = (props) => {
                 name={"email"}
                 id={"email"}
                 value={email}
-                onChangeText={(text) => setEmail(text.toLowerCase())}
+                onChangeText={(text) => setEmail(text)}
             />
             <Input 
                 placeholder={"Slaptažodis"}

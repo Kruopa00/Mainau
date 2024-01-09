@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import { 
+import React, { useState, useEffect, useContext, forwardRef } from "react";
+import {
     View,
     Text,
     Image,
     StyleSheet,
     TouchableOpacity,
-    Platform
+    Platform,
+    Alert
 } from "react-native";
 import { Item, Picker } from "native-base";
 import FormContainer from "../../Shared/Form/FormContainer";
@@ -20,17 +21,14 @@ import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 import mime from "mime";
+import ModalSelector from 'react-native-modal-selector';
 
 const ProductForm = (props) => {
-    
-    const [pickerValue, setPickerValue] = useState();
     const [brand, setBrand] = useState();
     const [name, setName] = useState();
     const [description, setDescription] = useState();
     const [image, setImage] = useState();
     const [mainImage, setMainImage] = useState();
-    const [category, setCategory] = useState();
-    const [categories, setCategories] = useState([]);
     const [token, setToken] = useState();
     const [err, setError] = useState();
     const [countInStock, setCountInStock] = useState();
@@ -41,6 +39,9 @@ const ProductForm = (props) => {
     const [user, setUser] = useState();
     const [item, setItem] = useState(null);
     const context = useContext(AuthGlobal);
+    const [pickerValue, setPickerValue] = useState('Pasirinkite kategoriją');
+    const [category, setCategory] = useState(null);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         
@@ -73,15 +74,14 @@ const ProductForm = (props) => {
         
         // Image picker
         (async () => {
-            if (Platform.OS !== "web") {
-                const {
-                    status,
-                } = await ImagePicker.requestCameraPermissionsAsync();
+            let status;
+            if (Platform.OS !== 'web') {
+              status = await ImagePicker.requestCameraPermissionsAsync();
             }
-            if (status !== "granted") {
-                alert("Atsiprašome, bet reikia Jūsų galerijos privilegijų!")
+            if (typeof status === 'undefined' || status.status !== 'granted') {
+              Alert.alert('Atsiprašome, bet reikia Jūsų galerijos privilegijų!');
             }
-        })();
+          })();
 
         return () => {
             setCategories([]);
@@ -186,17 +186,20 @@ const ProductForm = (props) => {
                 })
             })
         }
+    };
 
-        
-    }
+    const handleValueChange = (option) => {
+        setPickerValue(option.label);
+        setCategory(option.key);
+    };
 
     return (
         <FormContainer title="Naujas skelbimas">
-            <View style={styles.imageContainer}>
+            <View style={StyleSheet.flatten([styles.imageContainer])}>
                 <Image style={styles.image} source={{uri: mainImage}}/>
                 <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
                     <Icon style={{ color: "white" }} name="camera"/>
-                </TouchableOpacity>
+                </TouchableOpacity> 
             </View>
             <View style={styles.label}>
                 <Text style={{ textDecorationLine: "underline" }}>Prekės ženklas</Text>
@@ -243,22 +246,42 @@ const ProductForm = (props) => {
                 onChangeText={(text) => setDescription(text)}
             />
 
-            <Item picker>
+            <View style={styles.label}>
+                <Text style={{ textDecorationLine: "underline" }}>Kategorija</Text>
+            </View>
+            <ModalSelector
+                data={categories.map((c) => ({ key: c._id, label: c.name }))}
+                initValue={pickerValue}
+                onChange={handleValueChange}
+                cancelText="Atšaukti"
+                style={styles.inputStyle}
+                >
+                <View>
+                    <Input
+                    value={pickerValue}
+                    editable={false}
+                    />
+                </View>
+            </ModalSelector>
+            {/* <Item picker>
                 <Picker
-                    mode="dropdown"
+                    dropdownMode="spinner"
                     iosIcon={<Icon color={"#007aff"} name="arrow-down" />}
                     style={{ width: undefined }}
                     placeholder="Pasirinkite kategoriją"
                     selectedValue={pickerValue}
-                    placeholderStyle={{ color: "#007aff"}}
+                    placeholderStyle={{ color: "#007aff" }}
                     placeholderIconColor="#007aff"
-                    onValueChange={(e) => [setPickerValue(e), setCategory(e)]}
+                    onValueChange={(e) => {
+                        setPickerValue(e);
+                        setCategory(e);
+                    }}
                 >
-                    {categories.map((c) => {
-                        return <Picker.Item key={c._id} label={c.name} value={c._id} />
-                    })}
+                    {categories.map((c) => (
+                        <Picker.Item key={c._id} label={c.name} value={c._id} />
+                    ))}
                 </Picker>
-           </Item>
+            </Item> */}
            {err ? <Error message={err} /> : null}
            <View style={styles.buttonContainer}>
                 <MainauButton
@@ -272,7 +295,7 @@ const ProductForm = (props) => {
            </View>
         </FormContainer>
     )
-}
+};
 
 const styles = StyleSheet.create({
     label: {
@@ -312,7 +335,12 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: 100,
         elevation: 20
-    }
+    },
+    inputStyle: {
+        textAlign: 'center',
+        width: '100%',
+        marginLeft: 62
+    },
 })
 
 export default ProductForm;

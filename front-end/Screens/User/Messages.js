@@ -18,7 +18,7 @@ import * as SMS from 'expo-sms';
 const Messages = (props) => {
     const [item, setItem] = useState(props.route.params.item);
     const [mobileNumber, setMobileNumber] = useState(item.user.phone);
-    const [bodySMS, setBodySMS] = useState('Sveiki, noriu mainytis Jūsų preke: "' + item.name + '".');
+    const [bodySMS, setBodySMS] = useState('Sveiki, noriu mainytis: "' + item.name + '".');
 
   const sendSms = async () => {
     const {result} = await SMS.sendSMSAsync(

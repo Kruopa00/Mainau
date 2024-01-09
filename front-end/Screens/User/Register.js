@@ -26,8 +26,8 @@ const Register = (props) => {
         }
 
         let user = {
-            name: name,
-            email: email,
+            name: name.toLowerCase(),
+            email: email.toLowerCase(),
             password: password,
             phone: phone,
             isAdmin: false,
@@ -70,13 +70,13 @@ const Register = (props) => {
                     placeholder={"El.paštas"}
                     name={"email"}
                     id={"email"}
-                    onChangeText={(text) => setEmail(text.toLowerCase())}
+                    onChangeText={(text) => setEmail(text)}
                 />
                 <Input 
                     placeholder={"Vartotojo vardas"}
                     name={"name"}
                     id={"name"}
-                    onChangeText={(text) => setName(text.toLowerCase())}
+                    onChangeText={(text) => setName(text)}
                 />
                 <Input
                     placeholder={"Tel.numeris"}

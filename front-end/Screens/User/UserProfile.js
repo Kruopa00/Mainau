@@ -51,7 +51,7 @@ const UserProfile = (props) => {
         <Container contentContainerStyle={ styles.container }>
             <View style={{ height: 180 }}>
                 <ScrollView contentContainerStyle={ styles.subContainer }>
-                    <Text style={{ fontSize: 30 }}>
+                    <Text style={{ fontSize: 30, textTransform: 'capitalize' }}>
                         {userProfile ? userProfile.name : ""}
                     </Text>
                     <View style={{ marginTop: 5 }}>
@@ -66,15 +66,25 @@ const UserProfile = (props) => {
             </View>
             <Tab.Navigator 
                 initialRouteName="Iverciai"
-                tabBarOptions={{ buttonContainer: {
-                    margin: 20,
-                    alignSelf: 'center',
-                    flexDirection: 'row'
-                },
-                    style: { backgroundColor: '#3f51b5' },
-                    activeTintColor: '#fff',
-                    inactiveTintColor: '#b3e5fc',
-                    indicatorStyle: { backgroundColor: '#fff' }}}
+                screenOptions={{
+                    "tabBarActiveTintColor": "#fff",
+                    "tabBarInactiveTintColor": "#b3e5fc",
+                    "tabBarIndicatorStyle": {
+                        "backgroundColor": "#fff"
+                    },
+                    "tabBarStyle": {
+                        "backgroundColor": "#3f51b5"
+                    }
+                }}
+                // tabBarOptions={{ buttonContainer: {
+                //     margin: 20,
+                //     alignSelf: 'center',
+                //     flexDirection: 'row'
+                // },
+                //     style: { backgroundColor: '#3f51b5' },
+                //     activeTintColor: '#fff',
+                //     inactiveTintColor: '#b3e5fc',
+                //     indicatorStyle: { backgroundColor: '#fff' }}}
                 >
                 <Tab.Screen name="Atsiliepimai" children={()=><UserReviews allowNewRating={true} userId={userId} parentProps={props}/>} />
                 <Tab.Screen name="Produktai" children={()=><UserProducts userId={userId} navigation={props.navigation}/>}/>
